@@ -29,7 +29,6 @@ class Super_Metronic_Frontend {
             wp_enqueue_style('sm-font-awesome-css', $path_portlet.'global/plugins/font-awesome/css/font-awesome.min.css' );
             wp_enqueue_style('sm-line-icons-css', $path_portlet.'global/plugins/simple-line-icons/simple-line-icons.min.css' );
             wp_enqueue_style('sm-bootstrap-css', $path_portlet.'global/plugins/bootstrap/css/bootstrap.min.css' );
-            wp_enqueue_style('sm-bootstrap-switch-css', $path_portlet.'global/plugins/bootstrap-switch/css/bootstrap-switch.min.css', array('sm-bootstrap-css') );
             
             wp_enqueue_style('sm-components-css', $path_portlet.'global/css/components.min.css', array('googlefont') );
             

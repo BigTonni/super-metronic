@@ -51,7 +51,6 @@ class Super_Metronic_Admin {
         wp_enqueue_style('sm-font-awesome-css', $path_portlet.'global/plugins/font-awesome/css/font-awesome.min.css' );
         wp_enqueue_style('sm-line-icons-css', $path_portlet.'global/plugins/simple-line-icons/simple-line-icons.min.css' );
         wp_enqueue_style('sm-bootstrap-css', $path_portlet.'global/plugins/bootstrap/css/bootstrap.min.css' );
-//        wp_enqueue_style('sm-bootstrap-switch-css', $path_portlet.'global/plugins/bootstrap-switch/css/bootstrap-switch.min.css', array('sm-bootstrap-css') );
         wp_enqueue_style('sm-uniform-css', $path_portlet.'global/plugins/uniform/css/uniform.default.css' );
         wp_enqueue_style('sm-themes-css', $path_portlet.'layouts/layout/css/themes/darkblue.min.css' );
         wp_enqueue_style('sm-trumbowyg-css', $path_portlet.'global/plugins/trumbowyg/ui/trumbowyg.min.css' );
@@ -70,10 +69,8 @@ class Super_Metronic_Admin {
         wp_enqueue_script('sm-slimscroll-js', $path_portlet .'global/plugins/jquery-slimscroll/jquery.slimscroll.min.js', array('jquery'), false, true);
         wp_enqueue_script('sm-blockui-js', $path_portlet .'global/plugins/jquery.blockui.min.js', array('jquery'), false, true);
         wp_enqueue_script('sm-uniform-js', $path_portlet .'global/plugins/uniform/jquery.uniform.min.js', array('jquery'), false, true);
-//        wp_enqueue_script('sm-bootstrap-switch-js', $path_portlet .'global/plugins/bootstrap-switch/js/bootstrap-switch.min.js', array('jquery','sm-bootstrap-js'), false, true);
 
         wp_enqueue_script('sm-trumbowyg-js', $path_portlet .'global/plugins/trumbowyg/trumbowyg.js', array('jquery'), false, false);
-//        wp_enqueue_script('sm-trumbowyg-langs-js', $path_portlet .'global/plugins/trumbowyg/langs/fr.min.js', array('jquery','sm-trumbowyg-js'), false, true);
         wp_enqueue_script('sm-app-js', $path_portlet .'global/scripts/app.min.js', array('jquery'), false, true);
         wp_enqueue_script('sm-layout-js', $path_portlet .'layouts/layout/scripts/layout.min.js', array('jquery','sm-app-js'), false, true);        
         
