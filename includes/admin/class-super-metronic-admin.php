@@ -1,10 +1,10 @@
 <?php
+if ( ! defined( 'ABSPATH' ) ) {
+	exit; // Exit if accessed directly.
+}
 /**
- * Super Commission
- */
-if (!defined('ABSPATH'))
-    exit; // Exit if accessed directly
-/**
+ * Super Metronic
+ *
  * Admin class
  *
  * @since 1.1
@@ -27,7 +27,7 @@ class Super_Metronic_Admin {
 
     function add_menu_items() {
         // portlets
-        add_menu_page(__('Portlets', Super_Metronic::TEXT_DOMAIN), __('Portlets', Super_Metronic::TEXT_DOMAIN), 'manage_options', 'portlets', array(&$this, 'my_portlets_page'), super_metronic()->plugin_url().'/assets/img/icon.png', 83);
+        add_menu_page(__('Portlets', Super_Metronic::TEXT_DOMAIN), __('Portlets', Super_Metronic::TEXT_DOMAIN), 'manage_options', 'portlets', array(&$this, 'portlets_activate_page'), super_metronic()->plugin_url().'/assets/img/icon.png', 83);
         add_submenu_page('portlets', 'Portlets - ' . __('Activate', Super_Metronic::TEXT_DOMAIN), __('Activate', Super_Metronic::TEXT_DOMAIN), 'manage_options', 'portlets', array(&$this, 'portlets_activate_page'));
         add_submenu_page('portlets', 'Portlets - ' . __('Customize', Super_Metronic::TEXT_DOMAIN), __('Customize', Super_Metronic::TEXT_DOMAIN), 'manage_options', 'portlets-customize', array(&$this, 'portlets_customize_page'));
     }
@@ -39,11 +39,46 @@ class Super_Metronic_Admin {
         if (!in_array($hook_suffix, array('portlets_page_portlets-customize', 'toplevel_page_portlets'))){
             return;
         }
+        
+        if ( ! did_action( 'wp_enqueue_media' ) ) {
+		wp_enqueue_media();
+	}
 
         $path_portlet = super_metronic()->plugin_url() . '/assets/';
+        //styles
+        wp_register_style('googlefont', '//fonts.googleapis.com/css?family=Open+Sans:400,300,600,700&subset=all');
         
-        wp_enqueue_script('smf-admin-js', $path_portlet . 'js/admin.js', array('jquery'));
-        wp_localize_script('smf-admin-js', 'smfScriptParams', array(
+        wp_enqueue_style('sm-font-awesome-css', $path_portlet.'global/plugins/font-awesome/css/font-awesome.min.css' );
+        wp_enqueue_style('sm-line-icons-css', $path_portlet.'global/plugins/simple-line-icons/simple-line-icons.min.css' );
+        wp_enqueue_style('sm-bootstrap-css', $path_portlet.'global/plugins/bootstrap/css/bootstrap.min.css' );
+//        wp_enqueue_style('sm-bootstrap-switch-css', $path_portlet.'global/plugins/bootstrap-switch/css/bootstrap-switch.min.css', array('sm-bootstrap-css') );
+        wp_enqueue_style('sm-uniform-css', $path_portlet.'global/plugins/uniform/css/uniform.default.css' );
+        wp_enqueue_style('sm-themes-css', $path_portlet.'layouts/layout/css/themes/darkblue.min.css' );
+        wp_enqueue_style('sm-trumbowyg-css', $path_portlet.'global/plugins/trumbowyg/ui/trumbowyg.min.css' );
+        wp_enqueue_style('sm-trumbowyg-colors-css', $path_portlet.'global/plugins/trumbowyg/plugins/colors/ui/trumbowyg.colors.css', array('sm-trumbowyg-css') );
+        wp_enqueue_style('sm-trumbowyg-preformatted-css', $path_portlet.'global/plugins/trumbowyg/plugins/preformatted/ui/trumbowyg.preformatted.min.css', array('sm-trumbowyg-css') );
+        
+        wp_enqueue_style('sm-components-css', $path_portlet.'global/css/components.min.css', array('googlefont') );
+        wp_enqueue_style('sm-plugins-css', $path_portlet.'global/css/plugins.min.css', array('googlefont') );
+        wp_enqueue_style('sm-layout-css', $path_portlet.'layouts/layout/css/layout.min.css', array('googlefont') );
+        wp_register_style('sm-admin-customize-css', $path_portlet.'css/admin-customize.css' );
+        wp_register_style('sm-admin-activate-css', $path_portlet.'css/admin-activate.css' );
+        //scripts
+        wp_enqueue_script('sm-bootstrap-js', $path_portlet .'global/plugins/bootstrap/js/bootstrap.min.js', array('jquery'), false, true);
+        wp_enqueue_script('sm-cookie-js', $path_portlet .'global/plugins/js.cookie.min.js', array('jquery'), false, true);
+        wp_enqueue_script('sm-bootstrap-hover-dropdown-js', $path_portlet .'global/plugins/bootstrap-hover-dropdown/bootstrap-hover-dropdown.min.js', array('jquery','sm-bootstrap-js'), false, true);
+        wp_enqueue_script('sm-slimscroll-js', $path_portlet .'global/plugins/jquery-slimscroll/jquery.slimscroll.min.js', array('jquery'), false, true);
+        wp_enqueue_script('sm-blockui-js', $path_portlet .'global/plugins/jquery.blockui.min.js', array('jquery'), false, true);
+        wp_enqueue_script('sm-uniform-js', $path_portlet .'global/plugins/uniform/jquery.uniform.min.js', array('jquery'), false, true);
+//        wp_enqueue_script('sm-bootstrap-switch-js', $path_portlet .'global/plugins/bootstrap-switch/js/bootstrap-switch.min.js', array('jquery','sm-bootstrap-js'), false, true);
+
+        wp_enqueue_script('sm-trumbowyg-js', $path_portlet .'global/plugins/trumbowyg/trumbowyg.js', array('jquery'), false, false);
+//        wp_enqueue_script('sm-trumbowyg-langs-js', $path_portlet .'global/plugins/trumbowyg/langs/fr.min.js', array('jquery','sm-trumbowyg-js'), false, true);
+        wp_enqueue_script('sm-app-js', $path_portlet .'global/scripts/app.min.js', array('jquery'), false, true);
+        wp_enqueue_script('sm-layout-js', $path_portlet .'layouts/layout/scripts/layout.min.js', array('jquery','sm-app-js'), false, true);        
+        
+        wp_enqueue_script('sm-admin-js', $path_portlet . 'js/admin.js', array('jquery','sm-trumbowyg-js'));
+        wp_localize_script('sm-admin-js', 'smfScriptParams', array(
             'ajaxurl' => admin_url('admin-ajax.php'),
         ));
     }
@@ -122,11 +157,23 @@ class Super_Metronic_Admin {
         exit(json_encode($data));
     }
 
-    function my_portlets_page() {        
-    }
-
     // Activate
     public function portlets_activate_page() {
+        wp_enqueue_style('sm-admin-activate-css');
+        
+        global $wpdb;
+        $notice = '';
+
+        $table_name = $wpdb->prefix .'portlets';
+        // Delete portlet
+        if( !empty($_POST) && wp_verify_nonce($_POST['action_delete'],'form_portlet_data') ){    
+                $wpdb->delete( $table_name, array( 'id' => (int)$_POST['pid'] ) );
+                $notice = __('Portlet was successfully removed.', Super_Metronic::TEXT_DOMAIN);
+        }
+        // Get all portlets
+        $sql = "SELECT * FROM {$table_name} WHERE 1=1";
+        $arr_portlets = $wpdb->get_results( $sql );
+        
         require_once( super_metronic()->plugin_path() . '/includes/admin/view/portlets_activate.php' );
     }
 
@@ -136,10 +183,11 @@ class Super_Metronic_Admin {
 
         $portlet = $this->get_portlet($id);
         
-        require_once( super_metronic()->plugin_path() . '/includes/admin/class-super-metronic-colors.php' );
-        $arr_colors = Super_Metronic_Colors::get_colors();
+        $arr_colors = require_once( super_metronic()->plugin_path() . '/includes/admin/colors.php' );
+
+        $images = $this->get_list_files();
         
-        $images = $this->get_list_files();    
+        wp_enqueue_style('sm-admin-customize-css');
         
         require_once( super_metronic()->plugin_path() . '/includes/admin/view/portlets_customize.php' );
         
@@ -158,7 +206,7 @@ class Super_Metronic_Admin {
         return ( $obj_portlet !== NULL ) ? $obj_portlet : $portlet;
     }
 
-
+    // View popup
     public static function portlet_modal( $color = 'white', $portlet, $images ){
             $number = 'new';
             $content = $title = $body = '';
@@ -259,10 +307,10 @@ class Super_Metronic_Admin {
             $view .= '<div class="row">';
             $view .= '<div class="col-md-12">';
             // Upload button on new version
-//            $view .= '<div class="bdImageUploadSection">
-//                <input type="file" name="file_upload" class="bgpickfile" id="bg_'. $color .'" />
-//                </div>';   
-            $view .= '</div>';
+//            $view .= '<div class="bdImageUploadSection"><input type="file" name="file_upload" class="bgpickfile" id="bg_'. $color .'" /></div>';   //old
+//            $view .= sm_image_uploader_field('uploader_custom', get_option('uploader_custom')); //new
+            $view .= '</div>';            
+            
             // View Porlet
             $view .= '<div class="col-md-12 portlet_box" style="margin-top: 20px;">';
             if( $content !== '' ){
@@ -335,6 +383,7 @@ class Super_Metronic_Admin {
             echo $view;
     }
     
+    // Get list of files
     private function get_list_files() {            
             $dir_upload = wp_upload_dir();
             $path_to_smf_dir = $dir_upload ? $dir_upload['basedir'] . '/smf_portlets/' : '';
@@ -345,10 +394,8 @@ class Super_Metronic_Admin {
 
                 while (false !== ($file = readdir($handle))) {
                     if ($file != "." && $file != "..") {
-//                        $ctime = filectime($path_to_smf_dir . '/' . $file);
                         $list_files[] = array(
-//                                    'url' => $dir_upload['baseurl']. '/smf_portlets/' .$file,
-                                    'url' => '/wp-content/uploads/smf_portlets/' .$file,
+                                    'url' => $dir_upload['baseurl']. '/smf_portlets/' .$file,
                                     'name' => $file
                         );
                     }

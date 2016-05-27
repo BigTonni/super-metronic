@@ -28,7 +28,11 @@
     Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 */
 
-if (!class_exists('Super_Metronic')) {
+if ( ! defined( 'ABSPATH' ) ) {
+	exit; // Exit if accessed directly.
+}
+
+if ( !class_exists('Super_Metronic') ) {
 
     register_activation_hook(   __FILE__, array( 'Super_Metronic', 'activate' ) );
     register_deactivation_hook( __FILE__, array( 'Super_Metronic', 'deactivate' ) );
@@ -117,6 +121,7 @@ if (!class_exists('Super_Metronic')) {
          */
         private function admin_includes() {
                 require_once( $this->plugin_path() . '/includes/admin/class-super-metronic-admin.php' );
+                require_once( $this->plugin_path() . '/includes/sm-helpers.php' );
                 $this->admin = new Super_Metronic_Admin();
         }
 

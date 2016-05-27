@@ -1,113 +1,11 @@
 <?php 
-// * Page for Actions
-$path_portlet = super_metronic()->plugin_url().'/assets/';
-
-global $wpdb;
-$notice = '';
-
-$table_name = $wpdb->prefix .'portlets';
-// Delete portlet
-if( !empty($_POST) && wp_verify_nonce($_POST['action_delete'],'form_portlet_data') ){    
-        $wpdb->delete( $table_name, array( 'id' => (int)$_POST['pid'] ) );
-        $notice = __('Portlet was successfully removed.', Super_Metronic::TEXT_DOMAIN);
+if ( ! defined( 'ABSPATH' ) ) {
+	exit; // Exit if accessed directly.
 }
-// Get all portlets
-$sql = "SELECT * FROM {$table_name} WHERE 1=1";
-$arr_portlets = $wpdb->get_results( $sql );
 ?>
-
-<link href="//fonts.googleapis.com/css?family=Open+Sans:400,300,600,700&subset=all" rel="stylesheet" type="text/css" />
-
-<link href="<?php echo $path_portlet; ?>global/plugins/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css" />
-<link href="<?php echo $path_portlet; ?>global/plugins/simple-line-icons/simple-line-icons.min.css" rel="stylesheet" type="text/css" />
-<link href="<?php echo $path_portlet; ?>global/plugins/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
-<link href="<?php echo $path_portlet; ?>global/plugins/uniform/css/uniform.default.css" rel="stylesheet" type="text/css" />
-<link href="<?php echo $path_portlet; ?>global/plugins/bootstrap-switch/css/bootstrap-switch.min.css" rel="stylesheet" type="text/css" />
-<!-- END GLOBAL MANDATORY STYLES -->
-<!-- BEGIN THEME GLOBAL STYLES -->
-<link href="<?php echo $path_portlet; ?>global/css/components.min.css" rel="stylesheet" id="style_components" type="text/css" />
-<link href="<?php echo $path_portlet; ?>global/css/plugins.min.css" rel="stylesheet" type="text/css" />
-<!-- END THEME GLOBAL STYLES -->
-<!-- BEGIN THEME LAYOUT STYLES -->
-<link href="<?php echo $path_portlet; ?>layouts/layout/css/layout.min.css" rel="stylesheet" type="text/css" />
-<link href="<?php echo $path_portlet; ?>layouts/layout/css/themes/darkblue.min.css" rel="stylesheet" type="text/css" id="style_color" />
-<link href="<?php echo $path_portlet; ?>layouts/layout/css/custom.min.css" rel="stylesheet" type="text/css" />
-<style>
-    body{ background-color: inherit; }
-    #adminmenu .update-plugins{
-        webkit-border-radius: 10px!important;
-        -moz-border-radius: 10px !important;
-        border-radius: 10px !important;
-    } 
-    .tabbable-line>.tab-content{
-        padding-bottom: 0px;
-    }
-    .caption_button{
-        float: right;
-        margin-top: 3px;
-    }
-    .caption_button > .btn.uppercase.portlet_button1,
-    .caption_button > .btn.uppercase.portlet_button2{
-        border-color: #fff;    
-    }
-    .portlet-notice{
-        float: left;
-        font-size: 16px;
-    }
-    @media (min-width: 992px){
-        .page-content-wrapper .page-content {
-            margin-left: 0px;
-        }
-    }
-    .portlet_button_wp{
-        margin-bottom: 20px;
-    }
-    .portlet_button_wp#bt_switch_def span.bootstrap-switch-handle-on.bootstrap-switch-primary{
-        background-color: #fff;
-        color: #000;
-    }
-    .portlet_button_wp#bt_switch_def span.bootstrap-switch-handle-off.bootstrap-switch-default{
-        color: #000;
-    }        
-    .portlet_button2{
-        display: none;
-    }
-    .portlet_button1, .portlet_button2{
-        min-width: 57px;
-    }
-    @media (min-width: 992px){
-        .page-content-wrapper .page-content {
-            margin-left: 0px;
-        }
-    }
-    .portlet_button_wp{
-        margin-bottom: 20px;
-    }
-    .portlet_button_wp#bt_switch_def span.bootstrap-switch-handle-on.bootstrap-switch-primary{
-        background-color: #fff;
-        color: #000;
-    }
-    .portlet_button_wp#bt_switch_def span.bootstrap-switch-handle-off.bootstrap-switch-default{
-        color: #000;
-    }        
-    .portlet_button2{
-        display: none;
-    }
-    .portlet_button1, .portlet_button2{
-        min-width: 57px;
-    }
-    .view_portlet_body{
-        min-height:200px;
-        min-width:271px;          
-    }
-    form[name="portlet_delete"]{
-        display: inline;
-    }
-</style>
 
 <!-- BEGIN CONTAINER -->
 <div class="page-container">
-
     <!-- BEGIN CONTENT -->
     <div class="page-content-wrapper">
         <!-- BEGIN CONTENT BODY -->
@@ -154,6 +52,5 @@ $arr_portlets = $wpdb->get_results( $sql );
         <!-- END CONTENT BODY -->
     </div>
     <!-- END CONTENT -->
-
 </div>
 <!-- END CONTAINER -->

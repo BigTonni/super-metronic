@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: Super Metronic\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: Wed May 25 2016 10:52:54 GMT+0300 (EEST)\n"
-"PO-Revision-Date: Wed May 25 2016 10:54:49 GMT+0300 (EEST)\n"
+"PO-Revision-Date: Fri May 27 2016 15:34:32 GMT+0300 (EEST)\n"
 "Last-Translator: bigtonni <shandm85@gmail.com>\n"
 "Language-Team: \n"
 "Language: English\n"
@@ -31,22 +31,26 @@ msgid "https://github.com/BigTonni"
 msgstr ""
 
 #. Description of the plugin
-msgid "Mega functionality from Metronic."
+msgid "Mega functionality with Metronic."
 msgstr ""
 
 #. Author of the plugin
 msgid "Anton Shulga"
 msgstr ""
 
+#: ../../includes/sm-helpers.php:21
+msgid "Upload"
+msgstr ""
+
 #: ../../includes/admin/class-super-metronic-admin.php:30 ../..
 #: includes/admin/class-super-metronic-admin.php:30 ../..
-#: includes/admin/view/portlets_activate.php:118
+#: includes/admin/view/portlets_activate.php:16
 msgid "Portlets"
 msgstr ""
 
 #: ../../includes/admin/class-super-metronic-admin.php:31 ../..
 #: includes/admin/class-super-metronic-admin.php:31 ../../includes/admin/class-
-#: super-metronic-admin.php:109 ../../includes/admin/view/portlets_activate.php:134
+#: super-metronic-admin.php:144 ../../includes/admin/view/portlets_activate.php:32
 msgid "Activate"
 msgstr ""
 
@@ -55,79 +59,75 @@ msgstr ""
 msgid "Customize"
 msgstr ""
 
-#: ../../includes/admin/class-super-metronic-admin.php:54
+#: ../../includes/admin/class-super-metronic-admin.php:89
 msgid "Data was successfully stored"
 msgstr ""
 
-#: ../../includes/admin/class-super-metronic-admin.php:87
+#: ../../includes/admin/class-super-metronic-admin.php:122
 msgid "Error"
 msgstr ""
 
-#: ../../includes/admin/class-super-metronic-admin.php:105 ../..
-#: includes/admin/view/portlets_activate.php:131
+#: ../../includes/admin/class-super-metronic-admin.php:140 ../..
+#: includes/admin/view/portlets_activate.php:29
 msgid "Deactivate"
 msgstr ""
 
-#: ../../includes/admin/class-super-metronic-admin.php:174
-msgid "On"
-msgstr ""
-
-#: ../../includes/admin/class-super-metronic-admin.php:175
-msgid "Off"
-msgstr ""
-
-#: ../../includes/admin/class-super-metronic-admin.php:194
-msgid "Typography"
-msgstr ""
-
-#: ../../includes/admin/class-super-metronic-admin.php:195
-msgid "Background"
-msgstr ""
-
-#: ../../includes/admin/class-super-metronic-admin.php:196
-msgid "Buttons"
-msgstr ""
-
-#: ../../includes/admin/class-super-metronic-admin.php:237
-msgid "Cancel"
-msgstr ""
-
-#: ../../includes/admin/class-super-metronic-admin.php:290
-msgid "Button"
-msgstr ""
-
-#: ../../includes/admin/class-super-metronic-admin.php:311
-msgid "Primary text"
-msgstr ""
-
-#: ../../includes/admin/class-super-metronic-admin.php:315
-msgid "Secondary text"
-msgstr ""
-
-#: ../../includes/admin/class-super-metronic-admin.php:328
-msgid "Save"
-msgstr ""
-
-#: ../../includes/admin/class-super-metronic-admin.php:328
-msgid "Close"
-msgstr ""
-
-#: ../../includes/admin/view/portlets_customize.php:135
-msgid "UI Collor Collection"
-msgstr ""
-
-#: ../../includes/admin/view/portlets_customize.php:148
-msgid "Click to view demos for this color"
-msgstr ""
-
-#: ../../includes/admin/view/portlets_customize.php:210
-msgid "Upload Image"
-msgstr ""
-
-#: ../../includes/admin/view/portlets_activate.php:12
+#: ../../includes/admin/class-super-metronic-admin.php:171
 msgid "Portlet was successfully removed."
 msgstr ""
 
-#: ../../includes/admin/view/portlets_activate.php:136
+#: ../../includes/admin/class-super-metronic-admin.php:222
+msgid "On"
+msgstr ""
+
+#: ../../includes/admin/class-super-metronic-admin.php:223
+msgid "Off"
+msgstr ""
+
+#: ../../includes/admin/class-super-metronic-admin.php:242
+msgid "Typography"
+msgstr ""
+
+#: ../../includes/admin/class-super-metronic-admin.php:243
+msgid "Background"
+msgstr ""
+
+#: ../../includes/admin/class-super-metronic-admin.php:244
+msgid "Buttons"
+msgstr ""
+
+#: ../../includes/admin/class-super-metronic-admin.php:285
+msgid "Cancel"
+msgstr ""
+
+#: ../../includes/admin/class-super-metronic-admin.php:338
+msgid "Button"
+msgstr ""
+
+#: ../../includes/admin/class-super-metronic-admin.php:359
+msgid "Primary text"
+msgstr ""
+
+#: ../../includes/admin/class-super-metronic-admin.php:363
+msgid "Secondary text"
+msgstr ""
+
+#: ../../includes/admin/class-super-metronic-admin.php:376
+msgid "Save"
+msgstr ""
+
+#: ../../includes/admin/class-super-metronic-admin.php:376
+msgid "Close"
+msgstr ""
+
+#: ../../includes/admin/view/portlets_customize.php:52
+msgid "UI Collor Collection"
+msgstr ""
+
+#: ../../includes/admin/view/portlets_customize.php:65
+msgid "Click to view demos for this color"
+msgstr ""
+
+#: ../../includes/admin/view/portlets_activate.php:34
 msgid "Delete"
 msgstr ""

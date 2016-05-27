@@ -8,7 +8,9 @@
         }).keyup();
         
         // for Portlet's content: textarea.portlet_body -> .trumbowyg-editor
-        $('.trumbowyg-editor').on('keyup', function(){
+        $('textarea.portlet_body').trumbowyg();
+        
+        $('.trumbowyg-editor').live('keyup', function(){
             var $ths = $(this);
             var $thsVal = $ths.html();    
             $ths.closest('.tab-content').find('.view_portlet_body').html($thsVal);
@@ -50,10 +52,10 @@
             $(this).closest('.modal-body').find('.caption_button').html(buttons);
         });
         
-        $('.bootstrap-switch-handle-on,.bootstrap-switch-handle-off').live('click', function(){
-            console.log('click');
-        });
-        
+        // New version
+//        $('.bootstrap-switch-handle-on,.bootstrap-switch-handle-off').live('click', function(){
+//            console.log('click');
+//        });  
         
         // Saving Portlet's html
         $('.btn.btn-outline.saving').live('click', function(){
@@ -100,6 +102,29 @@
                         }
                 });
         });
+        
+        //Upload image
+        $('.upload_image_button').click(function(){
+		var send_attachment_bkp = wp.media.editor.send.attachment;
+		var button = $(this);
+		wp.media.editor.send.attachment = function(props, attachment) {
+			$(button).parent().prev().attr('src', attachment.url);
+			$(button).prev().val(attachment.id);
+			wp.media.editor.send.attachment = send_attachment_bkp;
+		}
+		wp.media.editor.open(button);
+		return false;    
+	});
+        //Remove image
+        $('.remove_image_button').click(function(){
+		var r = confirm("Are you sure?");
+		if (r == true) {
+			var src = $(this).parent().prev().attr('data-src');
+			$(this).parent().prev().attr('src', src);
+			$(this).prev().prev().val('');
+		}
+		return false;
+	});
             
     });
 })(jQuery);        

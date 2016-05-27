@@ -1,7 +1,6 @@
 <?php
-
 if ( ! defined( 'ABSPATH' ) ) {
-	exit;
+	exit; // Exit if accessed directly.
 }
 
 /**
@@ -18,7 +17,7 @@ class Super_Metronic_Install {
                 // create folder
                 $upload = wp_upload_dir();
                 $upload_dir = $upload['basedir'];
-                $upload_dir = $upload_dir . '/smf_portlets'; 
+                $upload_dir = $upload_dir . '/smf_portlets';
                 if (!is_dir($upload_dir)) {
                     mkdir($upload_dir, 0777);
                 }

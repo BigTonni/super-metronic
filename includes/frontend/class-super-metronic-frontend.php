@@ -1,19 +1,17 @@
 <?php
+if ( ! defined( 'ABSPATH' ) ) {
+	exit; // Exit if accessed directly.
+}
 /**
  * Super Metronic
- */
-
-if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
-/**
+ * 
  * Frontend class
  *
- * @since 1.0
+ * @since 1.1
  */
 class Super_Metronic_Frontend {
         /**
 	 * Setup admin class
-	 *
-	 * @since  1.0
 	 */
 	public function __construct() {
 		// load styles/scripts
@@ -23,14 +21,20 @@ class Super_Metronic_Frontend {
 
 	/**
 	 * Load admin styles and scripts
-	 *
-	 * @since 1.0
 	 */
 	public function load_styles_scripts() {
             $path_portlet = super_metronic()->plugin_url().'/assets/';
+            //styles
+            wp_register_style('googlefont', '//fonts.googleapis.com/css?family=Open+Sans:400,300,600,700&subset=all');
+            wp_enqueue_style('sm-font-awesome-css', $path_portlet.'global/plugins/font-awesome/css/font-awesome.min.css' );
+            wp_enqueue_style('sm-line-icons-css', $path_portlet.'global/plugins/simple-line-icons/simple-line-icons.min.css' );
+            wp_enqueue_style('sm-bootstrap-css', $path_portlet.'global/plugins/bootstrap/css/bootstrap.min.css' );
+            wp_enqueue_style('sm-bootstrap-switch-css', $path_portlet.'global/plugins/bootstrap-switch/css/bootstrap-switch.min.css', array('sm-bootstrap-css') );
+            
+            wp_enqueue_style('sm-components-css', $path_portlet.'global/css/components.min.css', array('googlefont') );
             
             wp_enqueue_style('smf-front-css', $path_portlet .'css/front.css');
-            
+            //scripts
             wp_enqueue_script( 'smf-front-js', $path_portlet . 'js/front.js', array( 'jquery' ) );
             wp_localize_script( 'smf-front-js', 'smfScriptParams', array(
                     'ajaxurl' => admin_url( 'admin-ajax.php' )
@@ -44,42 +48,30 @@ class Super_Metronic_Frontend {
             $arr_portlets = $wpdb->get_results( $sql );
             if (empty($arr_portlets))       return;
             
-            $path_portlet = super_metronic()->plugin_url().'/assets/';
-            
             ob_start();        
-            ?>
-                <link href="//fonts.googleapis.com/css?family=Open+Sans:400,300,600,700&subset=all" rel="stylesheet" type="text/css" />
-
-                <link href="<?php echo $path_portlet; ?>global/plugins/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css" />
-                <link href="<?php echo $path_portlet; ?>global/plugins/simple-line-icons/simple-line-icons.min.css" rel="stylesheet" type="text/css" />
-                <link href="<?php echo $path_portlet; ?>global/plugins/bootstrap-switch/css/bootstrap-switch.min.css" rel="stylesheet" type="text/css" />
-                <!-- END GLOBAL MANDATORY STYLES -->
-                <!-- BEGIN THEME GLOBAL STYLES -->
-                <link href="<?php echo $path_portlet; ?>global/css/components.min.css" rel="stylesheet" id="style_components" type="text/css" />
-                <!-- END THEME GLOBAL STYLES -->
-                
-                <div class="page-container">
-                            <!-- BEGIN CONTENT -->
-                            <div class="page-content-wrapper">
-                                <!-- BEGIN CONTENT BODY -->
-                                <div class="page-content">
-                                    <div class="row">
-                                        <div class="col-md-12">
-                                            <?php                                            
-                                            $view = '<div class="row">';
-                                            foreach ($arr_portlets as $key => $portlet) {
-                                                    $view .= '<div class="col-md-6" id="' . $portlet->id . '">' . wp_unslash($portlet->content) . '</div>';
-                                            }
-                                            $view .= '</div>';
-                                            echo $view;                                           
-                                            ?>   
-                                        </div>
-                                    </div>
-                                </div>
-                                <!-- END CONTENT BODY -->
+            ?>                
+            <div class="page-container">
+                <!-- BEGIN CONTENT -->
+                <div class="page-content-wrapper">
+                    <!-- BEGIN CONTENT BODY -->
+                    <div class="page-content">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <?php                                            
+                                $view = '<div class="row">';
+                                foreach ($arr_portlets as $key => $portlet) {
+                                        $view .= '<div class="col-md-6" id="' . $portlet->id . '">' . wp_unslash($portlet->content) . '</div>';
+                                }
+                                $view .= '</div>';
+                                echo $view;                                           
+                                ?>   
                             </div>
-                            <!-- END CONTENT -->
+                        </div>
+                    </div>
+                    <!-- END CONTENT BODY -->
                 </div>
+                <!-- END CONTENT -->
+            </div>
             <?php
             return ob_get_clean();
         }
