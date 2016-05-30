@@ -32,14 +32,7 @@ body{ background-color: inherit; }
 }
 .portlet_button_wp{
     margin-bottom: 20px;
-}
-.portlet_button_wp#bt_switch_def span.bootstrap-switch-handle-on.bootstrap-switch-primary{
-    background-color: #fff;
-    color: #000;
-}
-.portlet_button_wp#bt_switch_def span.bootstrap-switch-handle-off.bootstrap-switch-default{
-    color: #000;
-}        
+}    
 .portlet_button2{
     display: none;
 }

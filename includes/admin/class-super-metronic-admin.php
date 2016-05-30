@@ -46,26 +46,24 @@ class Super_Metronic_Admin {
 
         $path_portlet = super_metronic()->plugin_url() . '/assets/';
         //styles
-        wp_register_style('googlefont', '//fonts.googleapis.com/css?family=Open+Sans:400,300,600,700&subset=all');
+        wp_enqueue_style('sm-common', $path_portlet.'css/common.css');
         
         wp_enqueue_style('sm-font-awesome-css', $path_portlet.'global/plugins/font-awesome/css/font-awesome.min.css' );
         wp_enqueue_style('sm-line-icons-css', $path_portlet.'global/plugins/simple-line-icons/simple-line-icons.min.css' );
         wp_enqueue_style('sm-bootstrap-css', $path_portlet.'global/plugins/bootstrap/css/bootstrap.min.css' );
         wp_enqueue_style('sm-uniform-css', $path_portlet.'global/plugins/uniform/css/uniform.default.css' );
-        wp_enqueue_style('sm-themes-css', $path_portlet.'layouts/layout/css/themes/darkblue.min.css' );
         wp_enqueue_style('sm-trumbowyg-css', $path_portlet.'global/plugins/trumbowyg/ui/trumbowyg.min.css' );
         wp_enqueue_style('sm-trumbowyg-colors-css', $path_portlet.'global/plugins/trumbowyg/plugins/colors/ui/trumbowyg.colors.css', array('sm-trumbowyg-css') );
         wp_enqueue_style('sm-trumbowyg-preformatted-css', $path_portlet.'global/plugins/trumbowyg/plugins/preformatted/ui/trumbowyg.preformatted.min.css', array('sm-trumbowyg-css') );
         
-        wp_enqueue_style('sm-components-css', $path_portlet.'global/css/components.min.css', array('googlefont') );
-        wp_enqueue_style('sm-plugins-css', $path_portlet.'global/css/plugins.min.css', array('googlefont') );
-        wp_enqueue_style('sm-layout-css', $path_portlet.'layouts/layout/css/layout.min.css', array('googlefont') );
+        wp_enqueue_style('sm-components-css', $path_portlet.'global/css/components.min.css' );
+        wp_enqueue_style('sm-plugins-css', $path_portlet.'global/css/plugins.min.css' );
+        wp_enqueue_style('sm-layout-css', $path_portlet.'layouts/layout/css/layout.min.css' );
         wp_register_style('sm-admin-customize-css', $path_portlet.'css/admin-customize.css' );
         wp_register_style('sm-admin-activate-css', $path_portlet.'css/admin-activate.css' );
         //scripts
         wp_enqueue_script('sm-bootstrap-js', $path_portlet .'global/plugins/bootstrap/js/bootstrap.min.js', array('jquery'), false, true);
         wp_enqueue_script('sm-cookie-js', $path_portlet .'global/plugins/js.cookie.min.js', array('jquery'), false, true);
-        wp_enqueue_script('sm-bootstrap-hover-dropdown-js', $path_portlet .'global/plugins/bootstrap-hover-dropdown/bootstrap-hover-dropdown.min.js', array('jquery','sm-bootstrap-js'), false, true);
         wp_enqueue_script('sm-slimscroll-js', $path_portlet .'global/plugins/jquery-slimscroll/jquery.slimscroll.min.js', array('jquery'), false, true);
         wp_enqueue_script('sm-blockui-js', $path_portlet .'global/plugins/jquery.blockui.min.js', array('jquery'), false, true);
         wp_enqueue_script('sm-uniform-js', $path_portlet .'global/plugins/uniform/jquery.uniform.min.js', array('jquery'), false, true);
@@ -84,10 +82,10 @@ class Super_Metronic_Admin {
     // Save
     function portlet_saving() {
         $data = array('result' => true, 'html' => __('Data was successfully stored', Super_Metronic::TEXT_DOMAIN));
-        $portlet_html = isset($_POST['portletHtml']) ? $_POST['portletHtml'] : false;
-        $color = !empty($_POST['color']) ? $_POST['color'] : false;
-        
-        $id = !empty($_POST['number']) ? $_POST['number'] : false;
+        $portlet_html = isset($_POST['portletHtml']) ? htmlspecialchars($_POST['portletHtml']) : false;
+        $color = !empty($_POST['color']) ? sanitize_text_field($_POST['color']) : false;
+        //can be a number or maybe a string 'new'
+        $id = !empty($_POST['number']) ? sanitize_text_field($_POST['number']) : false;
 
         if ( $portlet_html !== false && $id && $color ) {
             global $wpdb;
@@ -210,7 +208,7 @@ class Super_Metronic_Admin {
 
             if( !empty($portlet) && $color == $portlet->color ){
                     $number = $portlet->id;
-                    $content = wp_unslash($portlet->content);
+                    $content = htmlspecialchars_decode(wp_unslash($portlet->content));
                     $title = $portlet->title;
                     $body = $portlet->body;
                     $btn_main_txt = $portlet->btn_main_txt;
@@ -220,7 +218,8 @@ class Super_Metronic_Admin {
                 $btn_sec_txt = __('Off', Super_Metronic::TEXT_DOMAIN);
             }
 
-            $view = '<div class="modal fade" id="demo_modal_' . $color . '">';
+            $color_esc = esc_attr($color);
+            $view = '<div class="modal fade" id="demo_modal_' . $color_esc . '">';
 
             $view .= '<div class="modal-dialog modal-lg">';
             $view .= '<div class="modal-content c-square">';
@@ -229,24 +228,24 @@ class Super_Metronic_Admin {
             $view .= '<button type="button" class="close" data-dismiss="modal" aria-label="Close">';
             $view .= '<span aria-hidden="true">&times;</span>';
             $view .= '</button>';
-            $view .= '<h4 class="modal-title bold uppercase font-' . $color . '">' . $color . '</h4>';
+            $view .= '<h4 class="modal-title bold uppercase font-' . $color_esc . '">' . esc_html($color) . '</h4>';
             $view .= '</div>';
 
             $view .= '<div class="modal-body">';
             $view .= '<div class="tabbable-line">';
 
             $view .= '<ul class="nav nav-tabs uppercase bold">';
-            $view .= '<li class="active"><a href="#' . $color . '_tab_1_content" data-toggle="tab">' . __('Typography', Super_Metronic::TEXT_DOMAIN) . '</a></li>';
-            $view .= '<li><a href="#' . $color . '_tab_2_content" data-toggle="tab">' . __('Background', Super_Metronic::TEXT_DOMAIN) . '</a></li>';
-            $view .= '<li><a href="#' . $color . '_tab_3_content" data-toggle="tab">' . __('Buttons', Super_Metronic::TEXT_DOMAIN) . '</a></li>';
+            $view .= '<li class="active"><a href="#' . $color_esc . '_tab_1_content" data-toggle="tab">' . __('Typography', Super_Metronic::TEXT_DOMAIN) . '</a></li>';
+            $view .= '<li><a href="#' . $color_esc . '_tab_2_content" data-toggle="tab">' . __('Background', Super_Metronic::TEXT_DOMAIN) . '</a></li>';
+            $view .= '<li><a href="#' . $color_esc . '_tab_3_content" data-toggle="tab">' . __('Buttons', Super_Metronic::TEXT_DOMAIN) . '</a></li>';
             $view .= '</ul>';
 
             $view .= '<div class="tab-content">';
-            $view .= '<div class="tab-pane active" id="' . $color . '_tab_1_content">';
+            $view .= '<div class="tab-pane active" id="' . $color_esc . '_tab_1_content">';
             $view .= '<h4>Title</h4>';
             $view .= '<div style="margin: 10px 0 30px 0">';
 
-            $view .= '<input type="text" class="input-large portlet_title" name="title" value="'. $title .'">';
+            $view .= '<input type="text" class="input-large portlet_title" name="title" value="'. esc_attr($title) .'">';
 
             $view .= '</div>';
             $view .= '<h4>Main text</h4>';
@@ -256,21 +255,21 @@ class Super_Metronic_Admin {
 
             $view .= '<h4>Icon</h4>';
             $view .= '<div style="margin: 10px 0 30px 0">';
-            $view .= '<a href="#" class="portlet_icon"><i class="font-' . $color . ' font-lg icon-user" data-icon_p="icon-user"></i>&nbsp;</a>';
-            $view .= '<a href="#" class="portlet_icon"><i class="font-' . $color . ' font-lg icon-settings" data-icon_p="icon-settings"></i>&nbsp;</a>';
-            $view .= '<a href="#" class="portlet_icon"><i class="font-' . $color . ' font-lg icon-calendar" data-icon_p="icon-calendar"></i></a><br>';
-            $view .= '<a href="#" class="portlet_icon"><i class="font-' . $color . ' font-lg icon-power" data-icon_p="icon-power"></i>&nbsp;</a>';
-            $view .= '<a href="#" class="portlet_icon"><i class="font-' . $color . ' font-lg icon-paper-plane" data-icon_p="icon-paper-plane"></i>&nbsp;</a>';
-            $view .= '<a href="#" class="portlet_icon"><i class="font-' . $color . ' font-lg icon-paper-clip" data-icon_p="icon-paper-clip"></i></a><br>';
-            $view .= '<a href="#" class="portlet_icon"><i class="font-' . $color . ' font-lg icon-pointer" data-icon_p="icon-pointer"></i>&nbsp;</a>';
-            $view .= '<a href="#" class="portlet_icon"><i class="font-' . $color . ' font-lg icon-lock" data-icon_p="icon-lock"></i>&nbsp;</a>';
-            $view .= '<a href="#" class="portlet_icon"><i class="font-' . $color . ' font-lg icon-magnifier" data-icon_p="icon-magnifier"></i></a><br>';
+            $view .= '<a href="#" class="portlet_icon"><i class="font-' . $color_esc . ' font-lg icon-user" data-icon_p="icon-user"></i>&nbsp;</a>';
+            $view .= '<a href="#" class="portlet_icon"><i class="font-' . $color_esc . ' font-lg icon-settings" data-icon_p="icon-settings"></i>&nbsp;</a>';
+            $view .= '<a href="#" class="portlet_icon"><i class="font-' . $color_esc . ' font-lg icon-calendar" data-icon_p="icon-calendar"></i></a><br>';
+            $view .= '<a href="#" class="portlet_icon"><i class="font-' . $color_esc . ' font-lg icon-power" data-icon_p="icon-power"></i>&nbsp;</a>';
+            $view .= '<a href="#" class="portlet_icon"><i class="font-' . $color_esc . ' font-lg icon-paper-plane" data-icon_p="icon-paper-plane"></i>&nbsp;</a>';
+            $view .= '<a href="#" class="portlet_icon"><i class="font-' . $color_esc . ' font-lg icon-paper-clip" data-icon_p="icon-paper-clip"></i></a><br>';
+            $view .= '<a href="#" class="portlet_icon"><i class="font-' . $color_esc . ' font-lg icon-pointer" data-icon_p="icon-pointer"></i>&nbsp;</a>';
+            $view .= '<a href="#" class="portlet_icon"><i class="font-' . $color_esc . ' font-lg icon-lock" data-icon_p="icon-lock"></i>&nbsp;</a>';
+            $view .= '<a href="#" class="portlet_icon"><i class="font-' . $color_esc . ' font-lg icon-magnifier" data-icon_p="icon-magnifier"></i></a><br>';
             $view .= '</div>';
 
             $view .= '</div>';
 
             // Tab 2
-            $view .= '<div class="tab-pane" id="' . $color . '_tab_2_content">';
+            $view .= '<div class="tab-pane" id="' . $color_esc . '_tab_2_content">';
             $view .= '<div class="row">';
             // Tab 2.1
             $view .= '<div class="col-md-7">';
@@ -304,7 +303,7 @@ class Super_Metronic_Admin {
             $view .= '<div class="row">';
             $view .= '<div class="col-md-12">';
             // Upload button on new version
-//            $view .= '<div class="bdImageUploadSection"><input type="file" name="file_upload" class="bgpickfile" id="bg_'. $color .'" /></div>';   //old
+//            $view .= '<div class="bdImageUploadSection"><input type="file" name="file_upload" class="bgpickfile" id="bg_'. $color_esc .'" /></div>';   //old
 //            $view .= sm_image_uploader_field('uploader_custom', get_option('uploader_custom')); //new
             $view .= '</div>';            
             
@@ -313,7 +312,7 @@ class Super_Metronic_Admin {
             if( $content !== '' ){
                 $view .= $content;
             }else{            
-                $view .= '<div class="portlet solid ' . $color . '">';
+                $view .= '<div class="portlet solid ' . $color_esc . '">';
                 $view .= '<div class="portlet-title"><div class="caption"><i class="fa"></i><span class="view_portlet_title"></span></div><div class="caption_button"></div></div>';
                 $view .= '<div class="portlet-body"><div class="scroller view_portlet_body" style="height:200px" data-rail-visible="1" data-rail-color="yellow" data-handle-color="#a1b2bd"></div></div>';
                 $view .= '</div>';            
@@ -328,26 +327,26 @@ class Super_Metronic_Admin {
             $view .= '</div>';
 
             // Tab 3
-            $view .= '<div class="tab-pane" id="' . $color . '_tab_3_content">';
+            $view .= '<div class="tab-pane" id="' . $color_esc . '_tab_3_content">';
             $view .= '<div class="row">';
             $view .= '<div class="col-md-2">';
             
             $default = __('Button', Super_Metronic::TEXT_DOMAIN);
             
-            $view .= '<div class="portlet_button_wp"><button type="button" class="btn uppercase portlet_button1 ' . $color . '">' . $default . '</button>';
-            $view .= '<button type="button" class="btn uppercase portlet_button2 ' . $color . '">' . $default . '</button></div>';
+            $view .= '<div class="portlet_button_wp"><button type="button" class="btn uppercase portlet_button1 ' . $color_esc . '">' . $default . '</button>';
+            $view .= '<button type="button" class="btn uppercase portlet_button2 ' . $color_esc . '">' . $default . '</button></div>';
 
-            $view .= '<div class="portlet_button_wp"><button type="button" class="btn sbold uppercase portlet_button1 btn-outline ' . $color . '">' . $default . '</button>';
-            $view .= '<button type="button" class="btn sbold uppercase portlet_button2 btn-outline ' . $color . '">' . $default . '</button></div>';
+            $view .= '<div class="portlet_button_wp"><button type="button" class="btn sbold uppercase portlet_button1 btn-outline ' . $color_esc . '">' . $default . '</button>';
+            $view .= '<button type="button" class="btn sbold uppercase portlet_button2 btn-outline ' . $color_esc . '">' . $default . '</button></div>';
 
-            $view .= '<div class="portlet_button_wp"><button type="button" class="btn sbold uppercase portlet_button1 btn-circle ' . $color . '">' . $default . '</button>';
-            $view .= '<button type="button" class="btn sbold uppercase portlet_button2 btn-circle ' . $color . '">' . $default . '</button></div>';
+            $view .= '<div class="portlet_button_wp"><button type="button" class="btn sbold uppercase portlet_button1 btn-circle ' . $color_esc . '">' . $default . '</button>';
+            $view .= '<button type="button" class="btn sbold uppercase portlet_button2 btn-circle ' . $color_esc . '">' . $default . '</button></div>';
 
-            $view .= '<div class="portlet_button_wp"><button type="button" class="btn sbold uppercase portlet_button1 btn-outline btn-circle ' . $color . '">' . $default . '</button>';
-            $view .= '<button type="button" class="btn sbold uppercase portlet_button2 btn-outline btn-circle ' . $color . '">' . $default . '</button></div>';
+            $view .= '<div class="portlet_button_wp"><button type="button" class="btn sbold uppercase portlet_button1 btn-outline btn-circle ' . $color_esc . '">' . $default . '</button>';
+            $view .= '<button type="button" class="btn sbold uppercase portlet_button2 btn-outline btn-circle ' . $color_esc . '">' . $default . '</button></div>';
 
 //            $view .= '<div class="portlet_button_wp" id="bt_switch_def"><input type="checkbox" class="make-switch" checked /></div>';
-//            $view .= '<div class="portlet_button_wp ' . $color . '"><input type="checkbox" class="make-switch" checked /></div>';
+//            $view .= '<div class="portlet_button_wp ' . $color_esc . '"><input type="checkbox" class="make-switch" checked /></div>';
 
             $view .= '</div>';
             $view .= '<div class="col-md-5">';
@@ -369,7 +368,7 @@ class Super_Metronic_Admin {
             $view .= '</div>';
             $view .= '</div>';
             // Footer
-            $view .= '<input type="hidden" name="portlet_number" value="'. $number .'" />';
+            $view .= '<input type="hidden" name="portlet_number" value="'. esc_attr($number) .'" />';
             $view .= '<div class="modal-footer"><div class="portlet-notice"></div><button type="button" class="btn btn-outline dark sbold uppercase saving">' . __('Save', Super_Metronic::TEXT_DOMAIN) . '</button><button type="button" class="btn btn-outline dark sbold uppercase" data-dismiss="modal">' . __('Close', Super_Metronic::TEXT_DOMAIN) . '</button></div>';
 
             $view .= '</div>';

@@ -3,12 +3,12 @@
  * Plugin Name: Super Metronic
  * Plugin URI: https://github.com/BigTonni
  * Description: Mega functionality with Metronic.
- * Version: 1.1
+ * Version: 1.1.1
  * Author: Anton Shulga
  * Author URI: https://github.com/BigTonni
  * License: GPLv2 or later
- * Requires at least: 4.4.2
- * Tested up to: 4.4.2
+ * Requires at least: 4.5.2
+ * Tested up to: 4.5.2
  * 
  * Text Domain: smf
  * Domain Path: /i18n/languages
@@ -41,13 +41,10 @@ if ( !class_exists('Super_Metronic') ) {
     class Super_Metronic {
         
         /** plugin version number */
-        const VERSION = '1.1';
+        const VERSION = '1.1.1';
         
         /** @var Super_Metronic single instance of this plugin */
         protected static $instance;
-
-        /** plugin meta prefix */
-//        const PLUGIN_PREFIX = 'super_metronic';
 
         /** plugin text domain */
         const TEXT_DOMAIN = 'smf';

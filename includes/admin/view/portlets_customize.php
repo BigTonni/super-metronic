@@ -11,7 +11,7 @@ if( !empty($portlet) ){
         $portlet_color = $portlet->color;
         $style = 'style="border: 2px solid red;"';
         
-        $content = wp_unslash($portlet->content);
+        $content = htmlspecialchars_decode(wp_unslash($portlet->content));
         
         require_once (super_metronic()->plugin_path().'/includes/phpQuery/phpQuery.php');
         $document = phpQuery::newDocumentHTML($content);

@@ -27,14 +27,12 @@
         $('.portlet_button_text1').live('keyup', function(){
             var $ths = $(this);
             $ths.closest('.tab-content').find('.portlet_button1').text($ths.val());
-            $ths.closest('.tab-content').find('span.bootstrap-switch-handle-on').text($ths.val());
         }).keyup();
         
         // for Portlet's - Main text for button
         $('.portlet_button_text2').live('keyup', function(){
             var $ths = $(this);
             $ths.closest('.tab-content').find('.portlet_button2').text($ths.val());
-            $ths.closest('.tab-content').find('span.bootstrap-switch-handle-off').text($ths.val());
         }).keyup();
         
         // Hide Main, Show Secodary text
@@ -51,11 +49,6 @@
             var buttons = $(this).closest('.portlet_button_wp').html();
             $(this).closest('.modal-body').find('.caption_button').html(buttons);
         });
-        
-        // New version
-//        $('.bootstrap-switch-handle-on,.bootstrap-switch-handle-off').live('click', function(){
-//            console.log('click');
-//        });  
         
         // Saving Portlet's html
         $('.btn.btn-outline.saving').live('click', function(){

@@ -17,13 +17,13 @@ if ( ! defined( 'ABSPATH' ) ) {
                         <?php echo $notice; ?>
                     </div>
                     <?php
+                    $url = admin_url( 'admin.php?page=portlets-customize' );
                     if (!empty($arr_portlets)) {
                         $view = '';
-                        $url = admin_url( 'admin.php?page=portlets-customize' );
+                        
                         foreach ($arr_portlets as $key => $portlet) {
                                 if( $key%4 == 0 ) $view .= '<div class="row">';
-
-                                $view .= '<div class="col-md-3" id="' . $portlet->id . '">' . wp_unslash($portlet->content);
+                                $view .= '<div class="col-md-3" id="' . esc_attr($portlet->id) . '">' . htmlspecialchars_decode(wp_unslash($portlet->content));
                                 if($portlet->status == 'activate'){
                                     $color = 'grey-cascade';
                                     $text = __('Deactivate', Super_Metronic::TEXT_DOMAIN);
@@ -33,8 +33,8 @@ if ( ! defined( 'ABSPATH' ) ) {
                                 }
                                 $text_delete = __('Delete', Super_Metronic::TEXT_DOMAIN);
                                 $link_portlet = add_query_arg( array('portlet' => $portlet->id), $url );
-                                $view .= '<div style="margin-bottom: 10px;"><a href="'.$link_portlet.'" class="btn blue-madison">Edit</a>';
-                                $view .= '<button type="button" class="btn portlet_action '. $color .'" data-id="'. $portlet->id .'" data-action_p="'. $portlet->status .'">'. $text .'</button>';
+                                $view .= '<div style="margin-bottom: 10px;"><a href="'.esc_url($link_portlet).'" class="btn blue-madison">Edit</a>';
+                                $view .= '<button type="button" class="btn portlet_action '. $color .'" data-id="'. esc_attr($portlet->id) .'" data-action_p="'. esc_attr($portlet->status) .'">'. $text .'</button>';
                                 $view .= '<form action="" name="portlet_delete" method="post"><input type="hidden" name="pid" value="'. $portlet->id .'" />';
                                 $view .= wp_nonce_field('form_portlet_data', 'action_delete', true, false);
                                 $view .= '<button type="submit" class="btn red-sunglo">'. $text_delete .'</button></form></div>';
@@ -44,6 +44,8 @@ if ( ! defined( 'ABSPATH' ) ) {
                         }
                         
                         echo $view;
+                    }else{
+                        printf( __('You can create portlets right now and %shere%s.', Super_Metronic::TEXT_DOMAIN), '<a href="'.$url.'">', '</a>');
                     }
                     ?>   
                 </div>

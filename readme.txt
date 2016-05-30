@@ -2,8 +2,8 @@
 Contributors: BigTonny
 Donate link: https://github.com/BigTonni
 Tags: portlet, dashboard, metronic
-Requires at least: 4.5  
-Tested up to: 4.5
+Requires at least: 4.5.2
+Tested up to: 4.5.2
 Stable tag: 1.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -43,6 +43,9 @@ Simple deactivate it through the 'Plugins' menu in Wordpress
 4. The list of activated portlets on a user page.
 
 == Changelog ==
+= Version 1.1.1 (May 30, 2016) =
+* Update for WP 4.5.2.
+
 = Version 1.1 (May 24, 2016) =
 * Update for WP 4.5.2.
 
@@ -53,6 +56,9 @@ Simple deactivate it through the 'Plugins' menu in Wordpress
 * First release.
 
 == Upgrade Notice ==
+= 1.1.1 =
+Add validation for form fields and data before writing them to the database.
+
 = 1.1 =
 Edit fixes. Add translating for English.
 

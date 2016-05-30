@@ -5,7 +5,7 @@ msgstr ""
 "Project-Id-Version: Super Metronic\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: Wed May 25 2016 10:52:54 GMT+0300 (EEST)\n"
-"POT-Revision-Date: Fri May 27 2016 15:34:25 GMT+0300 (EEST)\n"
+"POT-Revision-Date: Mon May 30 2016 16:28:30 GMT+0300 (EEST)\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -52,7 +52,7 @@ msgstr ""
 
 #: ../../includes/admin/class-super-metronic-admin.php:31 ../..
 #: /includes/admin/class-super-metronic-admin.php:31 ../../includes/admin/class-
-#: super-metronic-admin.php:144 ../../includes/admin/view/portlets_activate.php:32
+#: super-metronic-admin.php:139 ../../includes/admin/view/portlets_activate.php:32
 msgid "Activate"
 msgstr ""
 
@@ -61,64 +61,64 @@ msgstr ""
 msgid "Customize"
 msgstr ""
 
-#: ../../includes/admin/class-super-metronic-admin.php:89
+#: ../../includes/admin/class-super-metronic-admin.php:84
 msgid "Data was successfully stored"
 msgstr ""
 
-#: ../../includes/admin/class-super-metronic-admin.php:122
+#: ../../includes/admin/class-super-metronic-admin.php:117
 msgid "Error"
 msgstr ""
 
-#: ../../includes/admin/class-super-metronic-admin.php:140 ../..
+#: ../../includes/admin/class-super-metronic-admin.php:135 ../..
 #: /includes/admin/view/portlets_activate.php:29
 msgid "Deactivate"
 msgstr ""
 
-#: ../../includes/admin/class-super-metronic-admin.php:171
+#: ../../includes/admin/class-super-metronic-admin.php:166
 msgid "Portlet was successfully removed."
 msgstr ""
 
-#: ../../includes/admin/class-super-metronic-admin.php:222
+#: ../../includes/admin/class-super-metronic-admin.php:217
 msgid "On"
 msgstr ""
 
-#: ../../includes/admin/class-super-metronic-admin.php:223
+#: ../../includes/admin/class-super-metronic-admin.php:218
 msgid "Off"
 msgstr ""
 
-#: ../../includes/admin/class-super-metronic-admin.php:242
+#: ../../includes/admin/class-super-metronic-admin.php:238
 msgid "Typography"
 msgstr ""
 
-#: ../../includes/admin/class-super-metronic-admin.php:243
+#: ../../includes/admin/class-super-metronic-admin.php:239
 msgid "Background"
 msgstr ""
 
-#: ../../includes/admin/class-super-metronic-admin.php:244
+#: ../../includes/admin/class-super-metronic-admin.php:240
 msgid "Buttons"
 msgstr ""
 
-#: ../../includes/admin/class-super-metronic-admin.php:285
+#: ../../includes/admin/class-super-metronic-admin.php:281
 msgid "Cancel"
 msgstr ""
 
-#: ../../includes/admin/class-super-metronic-admin.php:338
+#: ../../includes/admin/class-super-metronic-admin.php:334
 msgid "Button"
 msgstr ""
 
-#: ../../includes/admin/class-super-metronic-admin.php:359
+#: ../../includes/admin/class-super-metronic-admin.php:355
 msgid "Primary text"
 msgstr ""
 
-#: ../../includes/admin/class-super-metronic-admin.php:363
+#: ../../includes/admin/class-super-metronic-admin.php:359
 msgid "Secondary text"
 msgstr ""
 
-#: ../../includes/admin/class-super-metronic-admin.php:376
+#: ../../includes/admin/class-super-metronic-admin.php:372
 msgid "Save"
 msgstr ""
 
-#: ../../includes/admin/class-super-metronic-admin.php:376
+#: ../../includes/admin/class-super-metronic-admin.php:372
 msgid "Close"
 msgstr ""
 
@@ -132,4 +132,9 @@ msgstr ""
 
 #: ../../includes/admin/view/portlets_activate.php:34
 msgid "Delete"
+msgstr ""
+
+#: ../../includes/admin/view/portlets_activate.php:48
+#, php-format
+msgid "You can create portlets right now and %shere%s."
 msgstr ""
